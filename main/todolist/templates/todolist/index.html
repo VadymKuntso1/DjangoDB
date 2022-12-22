@@ -22,7 +22,7 @@
     <h5 class="card-title">{{ task.title }}</h5>
     <h6 class="card-subtitle mb-2 text-muted">Remain: {{  task.days }} day(s) </h6>
     <p class="card-text">{{ task.description }}</p>
-    <a href="#" class="card-link">Remove</a>
+    <a href="{% url 'remove' task.id%}" class="card-link">Remove</a>
     <a href="{% url 'apply' task.id %}" class="card-link">Apply</a>
   </div>
 </div>
@@ -45,8 +45,10 @@
     <a href="{% url 'apply' task.id %}" class="card-link">Apply</a>
   </div>
 </div>
+<br>
 {%endfor%}
 {%endif%}
-<a href="{% url 'new' %}"> <button class="warning" >new task</button></a>
+<a href="{% url 'new' %}"> <button class="warning" >New task</button></a>
+<a href="{% url 'appliedlist' %}"> <button class="warning" >Applied</button></a>
 </body>
 </html>

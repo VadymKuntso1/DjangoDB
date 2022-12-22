@@ -30,7 +30,11 @@ def list(request):
 
 def apply(request,id):
     with connection.cursor() as cursor:
+        cursor.execute(f'''
+        insert into applied(title,description,days)
+select task.title, task.description, task.startdate-current_date from task where id = {id}''')
         cursor.execute('DELETE FROM task where id ='+str(id))
+
     return redirect('list')
 
 
@@ -51,12 +55,20 @@ def new(request):
             '{description}',
             to_date('{datetime.today()}','YYYY-MM-DD'),
             {p},
-            {days})
-            
+            {days}) 
             ''')
-
-
-
         return redirect('list')
     else:
         return render(request,'todolist/new.html')
+
+
+def appliedlist(request):
+    tasks = task.objects.raw('''
+        select * from applied''')
+    return render(request,'todolist/applied.html',{'tasks':tasks})
+
+
+def remove(request,id):
+    cursor.execute('DELETE FROM task where id =' + str(id))
+
+    return redirect('list')
