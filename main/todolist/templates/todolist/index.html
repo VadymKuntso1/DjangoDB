@@ -13,34 +13,40 @@
 </head>
 <body>
 {% if Urgantly %}
+<h1>Urgantly</h1>
 {% for task in Urgantly %}
 
 <div class="row"></div>
 <div class="card" style="width: 18rem;">
   <div class="card-body">
     <h5 class="card-title">{{ task.title }}</h5>
-    <h6 class="card-subtitle mb-2 text-muted">End time: {{  task.days }} </h6>
+    <h6 class="card-subtitle mb-2 text-muted">Remain: {{  task.days }} day(s) </h6>
     <p class="card-text">{{ task.description }}</p>
-    <a href="#" class="card-link">Card link</a>
-    <a href="#" class="card-link">Another link</a>
+    <a href="#" class="card-link">Remove</a>
+    <a href="{% url 'apply' task.id %}" class="card-link">Apply</a>
   </div>
 </div>
 {%endfor%}
 {%else%}
 {% endif %}
+
+
+{% if NotUrgantly %}
+<h1>Not Urgantly</h1>
 {% for task in NotUrgantly %}
 
 <div class="row"></div>
 <div class="card" style="width: 18rem;">
   <div class="card-body">
     <h5 class="card-title">{{ task.title }}</h5>
-    <h6 class="card-subtitle mb-2 text-muted">End time: {{  task.days }} </h6>
+    <h6 class="card-subtitle mb-2 text-muted">End time: {{  task.days }} day(s)</h6>
     <p class="card-text">{{ task.description }}</p>
-    <a href="#" class="card-link">Card link</a>
-    <a href="#" class="card-link">Another link</a>
+    <a href="#" class="card-link">Remove</a>
+    <a href="{% url 'apply' task.id %}" class="card-link">Apply</a>
   </div>
 </div>
 {%endfor%}
-
+{%endif%}
+<a href="{% url 'new' %}"> <button class="warning" >new task</button></a>
 </body>
 </html>
